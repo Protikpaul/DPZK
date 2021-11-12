@@ -1,0 +1,33 @@
+\subsection{Multi-Wallet Anonymous Payments}
+One application scenario that we highlight is in the context of fully anonymous payment schemes (e.g. Zcash \cite{zerocash}). The users on the system
+create and consume coins via following transactions: (i) {\bf Mint} transaction which allows users to introduce coins to the system (after equivalent funds are
+deposited to a backing pool), (ii) {\bf Spend} transaction which allows a user to consume his unspent coins and create new coins for other users and 
+(iii) {\bf Redeem} transaction which allowd a user to redeem his unspent coins in exchange for equivalent funds in external systems. Our application 
+is concerned with the {\bf Spend} transaction. In general an $n$-ary spend transaction consumes $n$ input coins and outputs $n$ coins with matching 
+cumulative value. The output coins may be assigned to different users. To ensure unlinkability of input and output coins, coins are created
+and spent using separate identifiers, known as {\em coin commitment} ($\mathsf{cm}$) and {\em serial number} ($\mathsf{sn}$) respectively. 
+Roughly, $\mathsf{cm}$
+and $\mathsf{sn}$ for a coin are linked via a trapdoor $\tau$: $\mathsf{cm} = f_1(\tau)$ and $\mathsf{sn}=f_2(\tau)$ for one-way functions
+$f_1$ and $f_2$. Knowing one of them, it is infeasible to infer the other.  
+The ledger maintains a list of commitments $\mathsf{CmList}$ for all the coins introduced to the system via {\bf Mint} or {\bf Spend} transactions. 
+The ledger also maintains the list $\mathsf{SnList}$ of all the coins spent via {\bf Spend} or {\bf Redeem} transactions. As part of a spend transaction, 
+the user supplies serial numbers $\mathsf{sn}_1,\ldots,\mathsf{sn}_n$ for the $n$ coins being consumed along with the commitments for the output coins.
+ Additionally, the 
+user supplies a zero knowledge proof $\pi$ attesting knowledge of $\{\mathsf{cm}_i,\tau_i\}_{i=1}^n$ such that:
+\begin{itemize}
+    \item $\mathsf{cm}_i\in \mathsf{CmList}$ for all $i\in [n]$.
+    \item $\mathsf{cm}_i=f_1(\tau_i)$ and $\mathsf{sn}_i=f_2(\tau_i)$ for all $i\in [n]$.
+\end{itemize}
+By verifying the above zero knowledge proof, the network ensures that serial numbers correspond to coins that were legitimately created and by further
+verifying that $\mathsf{sn}_i\not\in \mathsf{SnList}$ for all $i\in [n]$, the network ensures that the same coin is not 
+spent more than once (double spending).
+
+\noindent{\em Current Limitations}: The above setup does not allow different users to pool in their coins as inputs to a spend transaction, for example,
+to jointly pay off another entity. The limitation stems from having to generate a zero knowledge proof, for which the user requires knowledge of all the
+private information associated with a coin. One way to work around the limitation is for users to transfer their respective coins (via spend transactions) 
+to one designated user, who then initiates a spend transaction consuming all the received coins on their behalf. 
+However, the operation is no longer {\em atomic} and the designated user may not go ahead with his transaction. 
+
+\noindent{\em Enhancement using DPZK}: Using distributed proof generation, the users supply the share of the witness corresponding to the coins they own,
+and use a distributed proof generation protocol proposed in this paper to output a proof that proves the validity of all the coins to the network. This
+results in an atomic payment between upto $n$ senders and recipients. 
