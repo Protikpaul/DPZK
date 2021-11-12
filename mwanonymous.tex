@@ -30,4 +30,23 @@ However, the operation is no longer {\em atomic} and the designated user may not
 
 \noindent{\em Enhancement using DPZK}: Using distributed proof generation, the users supply the share of the witness corresponding to the coins they own,
 and use a distributed proof generation protocol proposed in this paper to output a proof that proves the validity of all the coins to the network. This
-results in an atomic payment between upto $n$ senders and recipients. 
+results in an atomic payment between upto $n$ senders and recipients.
+
+\subsection{Cryptocurrency Based Auctions}
+Closely related to previous application is an auction based on cryptocurrencies such as Zcash. We provide a simplified description where
+an auction for an item invites bids from participants. After an announced time interval, the bidder with maximum bid wins the auction. The bids are
+made using cryptocurrency, where the bidder is required to prove that it owns currency amounting to its bid. The key advantage of a decentralized
+cryptocurrency is that bidders can prove their ``stake'' without revealing additional details. More precisely, an auctioneer announces an auction
+$\adv$ with a time-out block height as $T$ (i.e, the bidding ends at block height $T$). A bid is made using a special transaction of type {\bf Bid}
+consisting of the vector $\bm{s}=(\mathsf{sn}_1,\ldots,\mathsf{sn}_n)$ containing serial numbers of unspent coins, integer $v$ denoting the cumulative
+value of the coins (bidding amount) and a zero knowledge proof $\pi$ attesting that the coins are legitimate and add up to $v$. The transaction succeeds
+if the proof $\pi$ verifies and serial numbers in $\bm{s}$ do not appear in the list $\mathsf{SnList}$. A successful bid transaction also marks
+the serial numbers in $\bm{s}$ in a {\tt LOCKED} state (i.e, they are not spendable till block-height $T$). Post the time-out $T$, 
+the bid with the maximum value $v$ is selected as the winning bid. The 
+coins $\bm{s}$ in it are added to the list $\mathsf{SnList}$, while {\tt LOCKED} coins from other bids are {\tt UNLOCKED} (i.e, they are spendable again).
+In this description, we leave out the details of further engagement between the auctioneer and the winning participants, as that is external to the network.
+Leveraging distributed proof generation allows a set of participants to pool in their coins and place a joint bid in the auction. The distributed proof
+generation in this case is similar to that in previous paragraph.
+
+
+
