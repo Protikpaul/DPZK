@@ -14,22 +14,22 @@ a single prover to have the entire witness needed to generate the proof.
 %\pdnote{do we want to motivate it in a way such that the honest prover setting we are looking at will suffice for the listed applications? }
 In this work, we study the general setting of \textit{distributed prover
 	zero-knowledge protocols} ($\DPZK$) where multiple co-opetitive entities, each possessing its own secret data, want to prove to a verifier that their secret data together satisfy a predicate of common interest. This is to be done without revealing any information
-about their sensitive data to each other or to the verifier. We illustrate
-through some real-world applications: %potential.
-\UPDATED{\input{mwanonymous}}
+about their sensitive data to each other or to the verifier. 
+%We illustrate through some real-world applications: %potential.
+
 %------
-\begin{itemize}
-	%-----
-	\item[-] A simple but pertinent scenario is of a \textit{joint loan application} by an association of companies from a particular industry. The loan issuer has a set of financial requirements that it wants the association to satisfy. However, there is no single trusted entity to act as the prover to whom all the companies are willing to provide their sensitive business information.
-	%-----
-	\item[-] In cryptocurrency settings \cite{bitcoin, ethereum, zerocash}, this would enable a \textit{multi-wallet transaction} where the wallets are held by different parties or a \textit{proof of joint stake} where different parties hold the stake. These, in turn, enable secure collaboration applications by design on a blockchain network. % use it for joint auction-
-	%-----
-	\item[-] In trade logistics business networks \cite{scbn, e2open, tradelens}, a major reason for businesses to enter these networks is to benefit from cross-industry statistics. Publishing these statistics in a publicly verifiable manner without having a single trusted entity is another embodiment of this setting.
-	%-----
-	%	\item[-] In privacy-preserving server outsourced computation, it is assumed that the number of corrupted parties can be at most $t$, where $t<n/2$, for the honest majority setting and $t<n-1$ for the dishonest majority setting and $n$ is the number of servers. The protocols in these settings do not consider the scenario where the corruption exceeds $t$. In such a case, neither correctness nor privacy is ensured. So, suppose a user gets the output from the servers. In that case, there is no way to verify the correctness of the output, especially if the function is evaluated on inputs of multiple parties. In such a scenario, protocols can be enhanced by attaching a proof produced by all the servers stating the correctness of the computation. Here the statement would be the evaluated function, and the transcripts of each server become the share of the global witness. If the proof is valid, then the user is ensured that the output is indeed correct.
-	%-----
-	\item[-] \ADDED{More generally, in privacy-preserving server outsourced computations to multiple untrusted servers on sensitive data from data owner(s), it is typically assumed that the number of corrupt servers $s$ is $<n/2$ in the honest majority setting and $<n-1$ in the dishonest majority setting with $n$ being the number of servers. The protocols in these settings do not consider the scenario where the number of corrupt servers exceeds $s$, with neither correctness nor privacy ensured in that case. Hence, when a user gets the output from the servers, there is no way to verify the correctness of the output, especially if the function is evaluated on inputs of multiple data owners. In such a scenario, protocols can be enhanced by attaching a proof produced by all the servers, stating at least the correctness of the computation. Here the statement would be the evaluated function, and the transcripts of each server become the share of the global witness. If the proof is valid, then the user is ensured that the output is indeed correct. Observe that due to soundness of the proof, the proof for a wrong output will be rejected with overwhelming probability, even if all the servers are corrupt.}
-\end{itemize}
+%\begin{itemize}
+%	%-----
+%	\item[-] A simple but pertinent scenario is of a \textit{joint loan application} by an association of companies from a particular industry. The loan issuer has a set of financial requirements that it wants the association to satisfy. However, there is no single trusted entity to act as the prover to whom all the companies are willing to provide their sensitive business information.
+%	%-----
+%	\item[-] In cryptocurrency settings \cite{bitcoin, ethereum, zerocash}, this would enable a \textit{multi-wallet transaction} where the wallets are held by different parties or a \textit{proof of joint stake} where different parties hold the stake. These, in turn, enable secure collaboration applications by design on a blockchain network. % use it for joint auction-
+%	%-----
+%	\item[-] In trade logistics business networks \cite{scbn, e2open, tradelens}, a major reason for businesses to enter these networks is to benefit from cross-industry statistics. Publishing these statistics in a publicly verifiable manner without having a single trusted entity is another embodiment of this setting.
+%	%-----
+%	%	\item[-] In privacy-preserving server outsourced computation, it is assumed that the number of corrupted parties can be at most $t$, where $t<n/2$, for the honest majority setting and $t<n-1$ for the dishonest majority setting and $n$ is the number of servers. The protocols in these settings do not consider the scenario where the corruption exceeds $t$. In such a case, neither correctness nor privacy is ensured. So, suppose a user gets the output from the servers. In that case, there is no way to verify the correctness of the output, especially if the function is evaluated on inputs of multiple parties. In such a scenario, protocols can be enhanced by attaching a proof produced by all the servers stating the correctness of the computation. Here the statement would be the evaluated function, and the transcripts of each server become the share of the global witness. If the proof is valid, then the user is ensured that the output is indeed correct.
+%	%-----
+%	\item[-] \ADDED{More generally, in privacy-preserving server outsourced computations to multiple untrusted servers on sensitive data from data owner(s), it is typically assumed that the number of corrupt servers $s$ is $<n/2$ in the honest majority setting and $<n-1$ in the dishonest majority setting with $n$ being the number of servers. The protocols in these settings do not consider the scenario where the number of corrupt servers exceeds $s$, with neither correctness nor privacy ensured in that case. Hence, when a user gets the output from the servers, there is no way to verify the correctness of the output, especially if the function is evaluated on inputs of multiple data owners. In such a scenario, protocols can be enhanced by attaching a proof produced by all the servers, stating at least the correctness of the computation. Here the statement would be the evaluated function, and the transcripts of each server become the share of the global witness. If the proof is valid, then the user is ensured that the output is indeed correct. Observe that due to soundness of the proof, the proof for a wrong output will be rejected with overwhelming probability, even if all the servers are corrupt.}
+%\end{itemize}
 
 Formally, we have multiple provers $\prover_1, \ldots, \prover_{\Num}$
 respectively possessing witnesses $\wit_1, \ldots, \wit_{\Num}$. For a predicate $C$ the provers wish to prove to a verifier that $C(\wit_1,\cdots,\wit_{\Num}) = 1$.  
@@ -47,9 +47,8 @@ parties would incur more overheads.
 %The generic construction is optimal in proof size and verifier complexity in that it retains these complexities from the single-prover version irrespective of the number of provers. But, the complexity of proof generation suffers when the single prover protocol is not constructed with distributed proof generation in mind. Even an optimal $\round$-round proof generation algorithm with $O(N)$ multiplicative complexity of the prover's computation might result in a distributed proof generation algorithm with $\Omega(R \cdot N)$ communication among the provers.
 To get around the inefficiency of a generic construction, some prior works have proposed efficient distributed proof generation in restricted settings. These include simple predicates involved in threshold signatures ~\cite{DDS}, some sigma protocols ~\cite{EfficientTZ}, combined range proofs ~\cite{bulletproofs},
 or under trusted setup with a weaker adversarial model of the majority of parties
-being honest ~\cite{trinocchio}. The goal of this paper is to address the
-aforementioned shortcomings.
-
+being honest ~\cite{trinocchio}. The goal of this paper is to address the aforementioned shortcomings and enable DPZK for more general appilcations. We describe a few real-world applications below:
+\UPDATED{\input{mwanonymous}}
 \paragraph*{Our contributions}
 \begin{itemize}
 	%----------
