@@ -324,8 +324,10 @@
 \colorcodetrue
 
 \ifcolorcode
-\newcommand{\ADDED}[1] {\textcolor{blue} {#1}}
-\newcommand{\CHANGED}[1] {\textcolor{darkred} {#1}}
+\newcommand{\ADDED}[1] {\normalcolor #1}
+\newcommand{\CHANGED}[1] {\normalcolor #1}
+%\newcommand{\ADDED}[1] {\textcolor{blue} {#1}}
+%\newcommand{\CHANGED}[1] {\textcolor{darkred} {#1}}
 \newcommand{\UPDATED}[1] {\textcolor{darkgreen} {#1}}
 \else
 \newcommand{\ADDED}[1] {\normalcolor #1}

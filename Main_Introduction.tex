@@ -36,7 +36,7 @@ respectively possessing witnesses $\wit_1, \ldots, \wit_{\Num}$. For a predicate
 A natural solution for distributed
 proof generation is to start with the prover algorithm of a single prover
 protocol and run this algorithm between multiple provers using multi-party computation (MPC). This generic construction was discussed by Pedersen~\cite{Ped92}. 
-However, the generic construction is likely to be concretely
+\commentA{the following sentence construction is not correct} However, the generic construction is likely to be concretely
 inefficient, as implementing high-level abstractions such as fields, groups, and generic algorithms like $\fft$ are used in modern zero-knowledge proof protocols to compute the next prover message as an
 arithmetic circuit is challenging and would lead to large circuit
 representations. Running multiparty computation over such circuits with several
@@ -46,9 +46,8 @@ parties would incur more overheads.
 %generate the message to be sent to the verifier.
 %The generic construction is optimal in proof size and verifier complexity in that it retains these complexities from the single-prover version irrespective of the number of provers. But, the complexity of proof generation suffers when the single prover protocol is not constructed with distributed proof generation in mind. Even an optimal $\round$-round proof generation algorithm with $O(N)$ multiplicative complexity of the prover's computation might result in a distributed proof generation algorithm with $\Omega(R \cdot N)$ communication among the provers.
 To get around the inefficiency of a generic construction, some prior works have proposed efficient distributed proof generation in restricted settings. These include simple predicates involved in threshold signatures ~\cite{DDS}, some sigma protocols ~\cite{EfficientTZ}, combined range proofs ~\cite{bulletproofs},
-or under trusted setup with a weaker adversarial model of the majority of parties
-being honest ~\cite{trinocchio}. The goal of this paper is to address the aforementioned shortcomings and enable DPZK for more general appilcations. We describe a few real-world applications below:
-\UPDATED{\input{mwanonymous}}
+or under trusted setup with a weaker adversarial model of the majority of the parties
+being honest ~\cite{trinocchio}. The goal of this paper is to address the aforementioned shortcomings and enable DPZK for more general applications. We summarize our contributions below.
 \paragraph*{Our contributions}
 \begin{itemize}
 	%----------
@@ -56,11 +55,15 @@ being honest ~\cite{trinocchio}. The goal of this paper is to address the aforem
 	%----------
 	\item \ADDED{We present a compiler that takes any IOP-based zero-knowledge protocol and converts it to an ``MPC-friendly'' zero-knowledge protocol that supports $\DPZK$.}
 	%----------
-	\item Finally, we produce a protocol, \name, obtained via compiling a Ligero-style proof system using our compiler. It is optimized further to attain comparable efficiency with state-of-the-art protocols while achieving $\DPZK$.
+	\item \commentA{wrong/fishy sentence construction. compiling twice? what are the compilers? clean up the sentence}Finally, we produce a protocol, \name,  \commentA{is it graphene or Dgraphene}obtained via compiling a Ligero-style proof system using our compiler. It is optimized further to attain comparable efficiency with state-of-the-art protocols while achieving $\DPZK$.
 	%----------
 	The discussions will focus on {\em public-coin honest-verifier} protocols with a transparent setup, which is essentially the setting for real-world applications we envisage: 1) protocols with such verifiers can be converted to succinct non-interactive arguments (zk-SNARGs) via the Fiat-Shamir and like transforms \cite{FS86, BCS16}, and 2) generating the parameters of the protocol should ideally {\em not} involve a trusted third party. In this work, we provide an honest verifier zero-knowledge protocol motivated by applications, however using known transformations, such as~\cite{hubavcek2018efficiency}, we can obtain a zero-knowledge protocol while preserving the round complexity and the efficiency of both prover and verifier.
 	%----------
 \end{itemize}
+Next, before providing a detailed overview of our work, below we describe a couple of potential real-world application scenarios where DPZK can be useful. 
+
+
+\UPDATED{\input{mwanonymous}}
 %\pnote{old version below}
 %We design zero-knowledge protocols which enable efficient distributed proof generation, informally an ``MPC-friendly'' proof generation, while supporting \textit{arbitrary} predicates. %The proof generation algorithm is usually measured for efficiency in terms of the number of group operations and the number of rounds of interaction with the verifier.
 %Our work first identifies and motivates relevant efficiency parameters that a
