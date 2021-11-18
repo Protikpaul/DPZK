@@ -36,7 +36,7 @@ respectively possessing witnesses $\wit_1, \ldots, \wit_{\Num}$. For a predicate
 A natural solution for distributed
 proof generation is to start with the prover algorithm of a single prover
 protocol and run this algorithm between multiple provers using multi-party computation (MPC). This generic construction was discussed by Pedersen~\cite{Ped92}. 
-\commentA{the following sentence construction is not correct} However, the generic construction is likely to be concretely
+\commentA{the following sentence construction is not correct} However, the generic construction is likely to be %concretely
 inefficient, as implementing high-level abstractions such as fields, groups, and generic algorithms like $\fft$ are used in modern zero-knowledge proof protocols to compute the next prover message as an
 arithmetic circuit is challenging and would lead to large circuit
 representations. Running multiparty computation over such circuits with several
