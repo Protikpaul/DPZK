@@ -11,7 +11,10 @@ As a first step in our work, we identify additional parameters with significant 
 
 \noindent\textit{Proof-generation communication ($\prcomm$)}:
 %The first parameter of interest is \textit{proof generation communication} $(\prcomm)$. 
-This parameter quantifies the amount of communication between the provers during the distributed proof generation. This is meant to capture additional MPC communication that provers would incur while computing the messages to the verifier. Using secret-sharing based MPC protocols, ~\cite{GMW87, BGW88, SPDZ}, this depends on the number of multiplications between inputs from different parties ({\em cross-multiplications}) that need to be performed to compute the messages to the verifier. 
+This parameter quantifies the amount of communication between the provers during the distributed proof generation. 
+This is meant to capture additional MPC communication that provers would incur while computing the messages to the verifier. 
+Using secret-sharing based MPC protocols, ~\cite{GMW87, BGW88, SPDZ}, this depends on the number of multiplications between inputs 
+from different parties ({\em cross-multiplications}) that need to be performed to compute the messages to the verifier. 
 %\nnote{Don't we need to motivate why this parameter is important ?}
 %In general, this grows linearly with the circuit complexity of the proof generation algorithm for the practical MPC protocols. 
 %\nnote{Why are we discussing circuit complexity of proof generation algorithm?}
@@ -23,7 +26,9 @@ This parameter quantifies the amount of communication between the provers during
 
 \noindent\textit{Proof generation rounds ($\prrounds$)}:
 %The next parameter of interest is the number of \textit{proof generation rounds ($\prrounds$)} which 
-This indicates the number of MPC executions between the provers during the distributed proof generation. \commentA{the prior and the next sentences are same. please combine. it is not clear why the rounds inside MPC is not counted. or that what you mean? these descriptions are very confusing } %Informally, it denotes the number of MPC protocols the provers need to invoke. %separate MPCs that the provers have to run throughout the proof generation process, times the number of interactions needed inside each 
+This indicates the number of MPC executions between the provers during the distributed proof generation. 
+\commentA{the prior and the next sentences are same. please combine. it is not clear why the rounds inside MPC is not counted. or that what you mean? these descriptions are very confusing } 
+%Informally, it denotes the number of MPC protocols the provers need to invoke. %separate MPCs that the provers have to run throughout the proof generation process, times the number of interactions needed inside each 
  This is orthogonal to $\zkrounds$ and may not have any correlation with it. % Note that this could be lower than the round complexity of the zero knowledge protocol. 
 %\nnote{Do we really need the discussion below? What is the conclusion?}
 %{\color{blue} In a typical MPC, this parameter would be a constant number for
@@ -37,21 +42,38 @@ This indicates the number of MPC executions between the provers during the distr
 %\commentA{it's hard to digest the above; what's the point you are trying to make; some of the zkRounds do not need MPC and hence we can get read of the linear independence of prRounds from zkRounds?  }
 %\dnote{The above point makes sense only for the interactive version. Should we also argue for non-interactive proof generation?-that it requires us to do hash inside MPC if MPC is not done for each step.} 
 %\commentA{I didn't understand your comment. other can help?}
+\commentN{Is it necessary to state the point below? It's a bit vague. And if the MPC protocols are proven UC-secure, then I think sequential composition  
+is fine. Can the complexity of a security proof be a parameter of interest?}
 The parameter $\prrounds$ is also of cryptographic interest. If there are more than one round of prover message generation that requires MPC, care has to be taken to ensure a secure composition of the individual MPCs to prove the complete protocol is secure.
 
 \noindent\textit{Shared circuit complexity}:
 We will now elaborate a bit more on the number of cross-multiplications in the circuit that needs to be evaluated distributedly for proof generation since
 that is of practical relevance and influences prover communication ($\prcomm$)
 and proof generation rounds ($\prrounds$). In applications where the initial witness is canonically \textit{partitioned} among the provers, \UPDATED{that is the witness $\wit = \wit_1||\ldots||\wit_{\Num}$,} the term \textit{shared circuit} denotes a sub-circuit consisting of wires, whose values are functions of inputs from more than one prover. 
+\commentN{Replacing the desciption with new application}
+{\color{brown}
 Consider the earlier example of a trade-logistics business network, now on top of a blockchain where the hashes (or any other commitment) of a large number of data points from different participants are stored. 
 When parties come together to prove a statistic on their combined data, they
 need to establish that each data point used to compute the statistic corresponds to a 
 hash entry in the blockchain and the correctness of the result of the statistic computation on these data points. Nevertheless, the values of the circuit wires connecting each data point to its respective hash depend only on witness bits from a single party that owns the data point. Only the part of the circuit computing the statistic takes witness bits from multiple parties, and thus only this part needs to be considered for MPC while computing shares of extended witness. It would be desirable, though not evident, that the complexity of the MPC for {\em proof
 	generation} also depends favorably on the size of the shared circuit. 
-With the standard SHA hash function having around 30,000 gates, the practicality of distributed proof generation will be
+}
+{\color{blue}
+Consider the circuit for proving validity of the {\bf Bid} transaction in Section \ref{sec:application2}. We assume that $\mathsf{rt}$ denotes the Merkle
+ root over the list $\mathsf{CmList}$ of coins. Thus, to show that a coin commitment $\mathsf{cm}\in \mathsf{CmList}$, one provides an authentication path 
+ $\bm{p}$ from $\mathsf{cm}$ to $\mathsf{rt}$. Thus, to show that coin corresponding to each serial number
+$\mathsf{sn}_i\in \bm{s}$ appears in the list $\mathsf{CmList}$, the witness $\bm{w}_i$ involves the coin commitment $\mathsf{cm}_i$, the trapdoor $\tau_i$ for the coin 
+and authentication path $\bm{p}_i$ from $\mathsf{cm}_i$ to the root $\mathsf{rt}$. This part of the witness is completely known to the owner of 
+the $i^{th}$ coin. Thus the witness $\bm{w}$ authenticating the coins against the serial numbers is canonically partitioned into $\bm{w}_1,\ldots,\bm{w}_n$
+and requires no interaction to compute. On the other hand, secure computation is required to compute shares of witness wires evaluating the comparison
+$V==v$ where $V=v_1+\cdots+v_n$ denotes the cumulative value of the coins and $v$ denotes the public bid value. Clearly, this ``shared circuit'' 
+constitutes only a fraction of the entire witness. It would be desirable, though not obvious if the secure computation for {\em computing the proof} 
+also depends on the size of {\em shared circuit} instead of the that of the entire circuit. Since verifying merkle authentication paths using 
+standard hash functions (like SHA2) incur upwards of $100K$ gates, the practicality of distributed proof generation in this case will be
 greatly improved if its parameters (like $\prcomm$ and $\prrounds$) are 
 linear in the size of the shared circuit $N_s$ and not the total circuit size $N$.
 %Looking ahead, the complexity of the interaction between the provers in our DPZK protocol will be linear only in the circuit share complexity of the circuit predicate to be proven, and not in the total size of the circuit. 
+}
 
 In summary, the efficiency of a $\DPZK$ in the public-verifiable and
 non-interactive setting (which is our concern) will be measured via $\prcomm$,
@@ -69,9 +91,41 @@ $\prrounds$, in addition to the parameters for the single prover protocol.
 
 %Another subtle point here is that a single-prover ZK protocol provides the zero-knowledge property only for honest provers. The witness is not guaranteed to be hidden from the verifier if a prover deviates from the protocol. Hence, in a distributed prover setting it is non-trivial to prove or even define the zero-knowledge property if some of the provers deviate from the protocol or if they do not have the valid witness. 
 
-Just like the efficiency considerations, the security definition for a $\DPZK$ protocol needs to account for additional interaction. In particular, the security definition needs to capture the fact that interaction among the provers to generate the proof does not leak knowledge about their respective witnesses to other provers. 
-We come up with an MPC-style definition based on real-world ideal world paradigm \cite{Canetti00,Goldreich2001,Lindell17,CohenL14}  that takes the above issues into account. In the ideal-world, the provers deliver their respective part of the witnesses, and the functionality (that is parametrized with a language) combines them and check the assertion of a statement. In the real protocol, the provers participate in instances of MPC for `proof-generating functions' to generate messages for the verifier. To keep the proof-size independent of the number of provers, one of the provers enacts in a special role called aggregator that prepares the message for the verifier, taking into account communication from all its fellow provers and communicates the same to the verifier on behalf of all the provers. We say our protocol is secure if whatever an adversary (corrupting various subsets of provers and verifier) can do in real execution can be done in the ideal execution. Lastly, keeping in mind the final goal of non-interactive and publicly-verifiable proofs/arguments, we explicitly mention the exact corruption scenario that we handle for our constructions.  For example, it is enough to tackle a semi-honestly corrupt verifier (since a non-interactive proof does not give any additional scope of misbehaviour to a maliciously corrupt verifier over a semi-honestly corrupt one).  We refer to Section~\ref{sec:security model} for complete details. \commentA{this sentence is totally out of   context. The entire green text is on distributed prover. what do you really mean?}%Next, we move on to discuss the single-prover construction on which we build our $\DPZK$. 
-\UPDATED{We assume that \commentA{if you are talking about a single-prover, then why do you say provers?} provers do not deviate from the protocol. However, our protocol can withstand the scenario if all the provers are maliciously corrupt together due to the soundness property of the underlying ZK protocol. By using known techniques from malicious secure MPC, security against malicious provers can be achieved though the overhead is significant. A secure protocol that preserves privacy among the provers without incurring too much overhead is an interesting problem.}% Also, we will discuss how can we achieve security against maliciously corrupt provers (assuming the aggregator \commentA{we have not introduced aggregator} to be semi-honest). hide the number of provers from a corrupt verifier and to
+Just like the efficiency considerations, the security definition for a $\DPZK$ protocol needs to account for additional interaction. 
+In particular, the security definition needs to capture the fact that interaction among the provers to generate the proof does not 
+leak knowledge about their respective witnesses to other provers. 
+We come up with an MPC-style definition based on real-world ideal world paradigm \cite{Canetti00,Goldreich2001,Lindell17,CohenL14}  
+that takes the above issues into account. In the ideal-world, the provers deliver their respective part of the witnesses, 
+and the functionality (that is parametrized with a language) combines them and check the assertion of a statement. 
+In the real protocol, the provers participate in instances of MPC for `proof-generating functions' to generate messages for the verifier. 
+To keep the proof-size independent of the number of provers, one of the provers enacts in a special role called 
+aggregator that prepares the message for the verifier, taking into account communication from all its fellow provers 
+and communicates the same to the verifier on behalf of all the provers. We say our protocol is secure if whatever an 
+adversary (corrupting various subsets of provers and verifier) can do in real execution can be done in the ideal execution. 
+\commentN{Suggestion: Let's just highlight important assumptions and leave the rest to Section 4. Too much repetition and rambling below}
+{\color{brown}
+Lastly, keeping in mind the final goal of non-interactive and publicly-verifiable proofs/arguments, 
+we explicitly mention the exact corruption scenario that we handle for our constructions.  
+For example, it is enough to tackle a semi-honestly corrupt verifier (since a non-interactive proof does not 
+give any additional scope of misbehaviour to a maliciously corrupt verifier over a semi-honestly corrupt one).  
+We refer to Section~\ref{sec:security model} for complete details. 
+\commentA{this sentence is totally out of   context. The entire green text is on distributed prover. what do you really mean?}%Next, we move on to discuss the single-prover construction on which we build our $\DPZK$. 
+We assume that \commentA{if you are talking about a single-prover, then why do you say provers?} 
+provers do not deviate from the protocol. However, our protocol can withstand the scenario if all the provers are maliciously 
+corrupt together due to the soundness property of the underlying ZK protocol. By using known techniques from malicious secure MPC, 
+security against malicious provers can be achieved though the overhead is significant. 
+
+{\color{blue}
+We formalize the security of a $\dpzk$ protocol and state the precise trust assumptions under which we realize it in Section \ref{sec:security model}.
+Here we foreshadow the important aspects: (i) {\em Witness Confidentiality}, i.e, a DPZK protocol ensures that other provers do not learn private inputs of a prover during 
+distributed proof generation involving {\em semi-honest} provers, 
+(ii) {\em Zero Knowledge}, i.e, an honest verifier learns nothing beyond the truth of the statement 
+in a DPZK protocol involving semi-honest provers and (iii) {\em Soundness With Witness Extraction}, i.e, an honest verifier rejects a false statement even if the provers act maliciously.
+In practice, the restriction of honest verifier is overcome by using standard transformations to obtain non-interactive 
+argument from the interactive proof. Realizing a DPZK protocol for a malicious set of provers in an interesting future work.
+}
+
+% Also, we will discuss how can we achieve security against maliciously corrupt provers (assuming the aggregator \commentA{we have not introduced aggregator} to be semi-honest). hide the number of provers from a corrupt verifier and to
 \subsection{Compiler for IOP-based proof systems}
 \ADDED{Several recent constructions of efficient SNARKs~\cite{aurora, BCS16} are modeled in terms of {\em Interactive Oracle Proofs} (IOPs). In this work, we present a compiler that compiles an existing IOP, into an IOP
 that admits efficient proof generation by a distributed set of provers. This requires navigating several technical challenges: (i) IOPs use the abstraction of oracles, wherein the verifier does not receive the messages from the prover entirely, and only query a small number of positions and
@@ -301,10 +355,18 @@ restricted class of predicates: Desmedt et al. \cite{DDB94} proposing proofs for
 graph isomorphism, various works \cite{King05, DDS, Desmedt2011} for proposing
 threshold signatures, Keller et al. \cite{EfficientTZ} for a class of sigma
 protocols. 
-\UPDATED{Bulletproofs' \commentA{not sure if the "`" is used correctly. check}~\cite{bulletproofs} rangeproof provides a property that allows multiple proofs to be aggregated even if the provers are different.  \commentA{something wrong with this sentence. please correct}However, it does not work in our setting, that is, if the witness is held by multiple provers and jointly they generate the proof, whereas in bulletproofs, each provers must know the witness corresponding to its statement.}
+{\color{blue} More recently \cite{bulletproofs} presented a distributed variant of {\em range proofs} which allows
+several provers to compute a common proof showing their private inputs lie within an interval. However their protocol
+does not satisfy our stronger privacy requirements as the size of the proof depends on the number of provers.}
+
+{\color{brown} Bulletproofs' \commentA{not sure if the "`" is used correctly. check}~\cite{bulletproofs} rangeproof provides a 
+property that allows multiple proofs to be aggregated even if the provers are different.  
+\commentA{something wrong with this sentence. please correct}
+However, it does not work in our setting, that is, if the witness is held by multiple provers and jointly they generate the proof, 
+whereas in bulletproofs, each provers must know the witness corresponding to its statement.}
 %presents a ``distributed'' protocol to produce an aggregation of range proofs on inputs held by different parties. However, their completeness property is weaker than ours, i.e, a set of provers with valid witness can prove the statement only if each input gate is exclusively known to one prover. 
 Trinocchio \cite{trinocchio} proposes a distributed proof generation method for
-Pinocchio  \cite{pinnochio_PHGR} but only for honest majority and semi-honest setting. Moreover, it needs the trusted setup
+Pinocchio  \cite{pinnochio_PHGR} but only for honest majority and semi-honest\commentN{so do we, right?} setting. Moreover, it needs the trusted setup
 model. 
 \UPDATED{The work DIZK \cite{dizk} provides a distributed implementation of proof generation to provide better prover time. In other words, it parallelizes provers work. Thus, there is no notion of privacy among the provers in this setting.}
 %	a distributed implementation of the proof generation of a non-interactive zero-knowledge protocol (zkSNARK). 
