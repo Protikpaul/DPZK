@@ -36,8 +36,7 @@ respectively possessing witnesses $\wit_1, \ldots, \wit_{\Num}$. For a predicate
 A natural solution for distributed
 proof generation is to start with the prover algorithm of a single prover
 protocol and run this algorithm between multiple provers using multi-party computation (MPC). This generic construction was discussed by Pedersen~\cite{Ped92}. 
-\commentA{the following sentence construction is not correct} 
-{\color{blue}
+%{\color{blue}
 However, the generic construction is unlikely to be efficient in practice. Known constructions of efficient zero-knowledge proofs involve
 expensive computation (e.g. $\fft$) over complex mathematical structures such as fields, groups and elliptic curves, which are expensive when expressed
 as an arithmetic circuit. Running multiparty computation over such circuits with several parties will be prohibitive. 
@@ -52,7 +51,7 @@ combined range proofs \cite{bulletproofs}. Distributed proof generation for more
 weaker trust model involving a trusted setup and majority of the parties
 being honest \cite{trinocchio}. The goal of this paper is to enable DPZK for general computation without requiring trusted setup or honest majority. 
 We summarize our contributions below.
-}
+%}
 \paragraph*{Our contributions}
 \begin{itemize}
 	%----------
@@ -61,37 +60,16 @@ We summarize our contributions below.
 	\item \ADDED{We present a compiler that takes any IOP-based zero-knowledge protocol and converts it to an ``MPC-friendly'' zero-knowledge protocol 
 	which can then be used to obtain a $\DPZK$ protocol.}
 	%----------
-	\item \commentA{wrong/fishy sentence construction. compiling twice? what are the compilers? clean up the sentence}.
-	\commentN{I am replacing brown with blue: There was another issue, Graphene does not achieve DPZK, it can be turned into something (D-Graphene)
-	which achieves DPZK. We should take care of this other places also.}
-	{\color{brown}
-	Finally, we produce a protocol, \name,  \commentA{is it graphene or Dgraphene}obtained via compiling a Ligero-style proof system using our compiler. 
-	It is optimized further to attain comparable efficiency with state-of-the-art protocols while achieving $\DPZK$.
-	}
-	{\color{blue} We illustrate the application of our compiler for two single-oracle IOPs, which is the preferred setting for our compiler.
+	\item We illustrate the application of our compiler for two single-oracle IOPs, which is the preferred setting for our compiler.
 	We obtain the protocol \textsf{D-Ligero} by using our compiler with the Ligero protocol from \cite{ligero}. Building upon the techniques
 	used in Ligero, we construct a new single-oracle IOP which we call \name. The protocol \name\ admits smaller proof sizes
 	than Ligero while ensuring efficient verification. Moreover we show that \name\ can also be efficiently compiled to yeild a DPZK protocol, 
-	which we call D-Graphene. The zero knowledge protocols are described as interactive protocols secure against honest verifiers. Using standard
+	which we call \dpname. The zero knowledge protocols are described as interactive protocols secure against honest verifiers. Using standard
 	transforms such as \cite{FS86, BCS16}, they can be used to obtain succint non-interactive arguments of knowledge (SNARGs), 
 	which are secure against malicious verifiers in the Random Oracle model.
-	}
-	\commentN{I don't think the paragraph below is needed. Indeed, one of the referees asked to remove justification for
-	our assumptions, and simply state them}.
-	%----------
-	{\color{brown}
-	The discussions will focus on {\em public-coin honest-verifier} protocols with a transparent setup, 
-	which is essentially the setting for real-world applications we envisage: 
-	1) protocols with such verifiers can be converted to succinct non-interactive arguments (zk-SNARGs) via 
-	the Fiat-Shamir and like transforms \cite{FS86, BCS16}, and 2) generating the parameters of the protocol should 
-	ideally {\em not} involve a trusted third party. 
-	In this work, we provide an honest verifier zero-knowledge protocol motivated by applications, 
-	however using known transformations, such as~\cite{hubavcek2018efficiency}, 
-	we can obtain a zero-knowledge protocol while preserving the round complexity and the efficiency of both prover and verifier.
-	}
 	%----------
 \end{itemize}
-Before providing a detailed overview of our work, we discuss potential real-world applications where DPZK can be useful. 
+Before providing a detailed overview of our work, we discuss potential real-world applications where distributed proof generation can be useful. 
 
 
 \UPDATED{\input{mwanonymous}}
