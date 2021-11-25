@@ -15,7 +15,6 @@ The check $\innp{R}{\wit} = r^T b$ can be viewed as a following inner product $\
 %------
 \begin{align*}
 &\big[ \sum_{j\in[m]} p_j(\zeta_1), \ldots,  \sum_{j\in[m]} p_j(\zeta_s)\big]^T
-%&=\Phi  \left[\sum_{j\in[m]} p_j(\eta_1), \ldots, \sum_{j\in[m]} p_j(\eta_{s+\ell-1})\right]^T
  = \Phi  \overline{P}^T  [1^m||0^{m-1}]^T
 \end{align*}
 %------
@@ -30,7 +29,7 @@ Here, $* = [1^m||0^{m-1}]^T$ and $\varphi = \Phi^T \times [1^s]^T$ are public ve
 
 \smallskip  
 
-\noindent{\em Consistency of oracle $\pi$ and $P$ via $\ewit$}: The verifier additionally needs to determine if the committed $P$ and the oracle $\pi$ are consistent or not. The verifier proceeds to check the consistency at randomly sampled $t$ positions given by $\{(j_u,k_u): u\in [t]\}$ from $[h] \times [n]$ for a $t=O(\secpar)$. It queries the oracle for the columns $\pi[\cdot,k_u]$ and the prover for vectors $X_u = \ewit[\cdot,j_u,k_u]$ for $u\in [t]$.  For $u\in [t]$, let %\commentA{changed this notation. change in other places}$
+\noindent{\em Consistency of oracle $\pi$ and $P$ via $\ewit$}: The verifier additionally needs to determine if the committed $P$ and the oracle $\pi$ are consistent or not. The verifier proceeds to check the consistency at randomly sampled $t$ positions given by $\{(j_u,k_u): u\in [t]\}$ from $[h] \times [n]$ for a $t=O(\secpar)$. It queries the oracle for the columns $\pi[\cdot,k_u]$ and the prover for vectors $X_u = \ewit[\cdot,j_u,k_u]$ for $u\in [t]$.  For $u\in [t]$, let
 $\bm{1}_{j_u}$ denote the unit vector in $\FF^h$ with $1$ in the position $j_u$. The prover and the verifier run inner-product arguments to establish the following:
 %------------------
 \begin{enumerate}[{\rm 1.}]
@@ -113,43 +112,3 @@ We use the linear and quadratic check protocols from Section~\ref{subsec:linchec
 for $\gamma_x,\gamma_y,\gamma_z\sample \FF$. As before, we view $\wit_x,\wit_y,\wit_z$ and $\wit$ as $p\times m\times s$ matrices. Let $\bwit$ denote the $4p\times m\times s$ matrix formed by stacking $\wit_x,\wit_y,\wit_z$ and $\wit$ along ``slices''. The encoding $\ewit\gets\enc(\bwit)$ and commitment to the encoding $\comoracle\gets \comm(\ewit)$ are computed as in Sections~\ref{subsec:witencoding} and ~\ref{subsec:construct_oracle}. Note that $\comoracle$ is a $4p\times n$ matrix. 
 Let $D$ be the $M \times 4N$ sized matrix given in Equation~\ref{eq:comblincheck}. For the R1CS instance $(A,B,C)$, $\prover$ and $\verifier$ run linear check protocol~\ref{subsec:lincheck} for $D \bwit = \bm{0}$ and run quadratic check protocol for $\wit_x \circ \wit_y = \wit_z$.
 %----------
-%Here the following lemmas ensure the soundness and zero-knowledge property of \name. Details of proof of the protocol is given in Appendix~\ref{app:grapehene_securityproofs}.
-
-%\begin{lemma}[Soundness]\label{lem:graphene_sound}
-%	For all polynomially bounded provers $P^\ast$ and all $\pi\in\GG^{4p\times n}$, there exists an expected polynomial time extractor $\extrac$ with rewinding access to the transcript oracle $\tr = \innp{P^{\ast}}{\verifier^{\pi}}$ such that either $\extrac$ breaks the commitment binding, or it outputs a witness with overwhelming probability whenever $P^\ast$ succeeds, i.e.,
-%	%----------
-%	{\footnotesize
-%		\begin{align*}
-%		\condprob{
-%			\begin{array}{c}
-%			{[}\ewit_x||\ewit_y||\ewit_z||\ewit{]}=\open(\pi)\wedge \\
-%			\wit_z=\wit_x\circ\wit_y\wedge \wit_x=A\wit\\
-%			\wit_y=B\wit \wedge \wit_z=C\wit
-%			\end{array}
-%		}{
-%			\begin{array}{c}
-%			\sigma %\sample \gen(\secparam) \\
-%			\leftarrow \gen(\secparam) \\
-%			{[}\ewit_x||\ewit_y||\ewit_z||\ewit{]}%\sample \extr^{\mc{O}}(\sigma)\\
-%			\leftarrow \extr^{\mathsf{tr}}(\sigma) \\ 
-%			\wit_a=\dec(\ewit_a), a\in \{x,y,z\}\\
-%			\wit=\dec(\ewit)
-%			\end{array}
-%		}\\
-%		\geq \epsilon(P^\ast) - \kappa_{\rm qd}(\secpar) -\kappa_{\rm lc}(\secpar)
-%		\end{align*}
-%	}
-%	%---------
-%	Where $\kappa_{\rm lc}(\secpar)$ and $\kappa_{\rm qd}(\secpar)$ are the negligible soundness error of $\linearcheck$ and $\quadcheck$ respectively. And $\epsilon(P^\ast)$ is the success probability of the prover.
-%\end{lemma}
-%%------------------------------------------------------ 
-
-%%-------
-%%\subsection{Zero-Knowledge:}\label{subsec:graphene_zk}
-%%----GRAPHENE ZERO-KNOWLEDGE LEMMA----------
-%%-------------------------------------------
-%
-%\begin{lemma}[Zero-knowledge]\label{lem:simgraphene}
-%	There exists a simulator $\Sim$ that outputs a perfectly indistinguishable extended view of the verifier in honest execution of the protocol $\grapheneRCS$ for $t\leq b$.
-%\end{lemma}
-%%-------------------------------------------

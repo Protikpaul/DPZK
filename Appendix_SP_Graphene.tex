@@ -103,7 +103,6 @@
 	Define the vector $\tilde{\bm{C}}=(\tilde{C}_1,\ldots,\tilde{C}_n)$ where $\tilde{C}_k=\prod_{a=1}^\ell (\tilde{c}_a)^{\Lambda_{n,\ell}^T[a,k]}$ for $k\in [n]$. Let $\hat{\bm{C}}=(\hat{C}_1,\ldots,\hat{C}_n)$ where $\hat{C}_k=\prod_{i=1}^p(\pi[i,k])^{\rho_i}$. Now if $\Delta(\tilde{\bm{C}},\hat{\bm{C}})>e$, we see that the prover succeeds in the proximity check equation \eqref{eq:proxchecks} with probability at most $(1-e/n)^t$. 
 	%--------
 	If $\Delta(\tilde{\bm{C}}, \hat{\bm{C}}) \leq e$, while $d(\tilde{\ewit},\mc{C}_1)>e$, then it is easy to break the binding property commitment scheme. Thus an adversarial prover succeeds with probability at most $(1-e/n)^t$ when $d(\ewit,(\mc{W}_1)^p)>e$.
-	%In the complete	proof, we show that when $\Delta(\tilde{\bm{C}},\hat{\bm{C}})\leq e$, while $d(\tilde{\ewit},\mc{C}_1)>e$, the prover knows two openings to a commitment.	Thus an adversarial prover succeeds with probability at most $(1-e/n)^t$ when $d(\ewit,(\mc{W}_1)^p)>e$.
 	%--------
 	
 	We now consider the case when $d(\ewit,(\mc{W}_1)^p)\leq e$. From Lemma~\ref{lem:bicdecoding}, there exists (unique) $\ewit^*\in (\mc{W})^p$ such that $\Delta_1(\ewit,\ewit^*)\leq e$.
@@ -142,7 +141,7 @@
 	
 	\smallskip
 	%-----------------
-	$\extrac$ runs the protocol till step 8, sends $Q$ and receives $\ewit[\cdot, j_u,k_u]$. %Then it rewinds $\prover^\ast$ and sends new random $Q$. $\extrac$ keeps rewinding till $k_u$'s of all the $Q$s covered $[n]$. In expectation it takes $O(n\log(n))$ rewinds.
+	$\extrac$ runs the protocol till step 8, sends $Q$ and receives $\ewit[\cdot, j_u,k_u]$. 
 	%-----------------
 	
 	$\extrac$ picks random $\delta\in \FF^p$ and $\beta\in\FF^\ast$ and proceeds to run the inner product arguments. $\extrac$ uses $\extrac_{ip}$ and gets:
@@ -285,7 +284,6 @@
 	Let $\hat{\bm{C}}=(\hat{C}_1,\ldots,\hat{C}_n)$ where $\hat{C}_k=\prod_{i=1}^{3p}(\pi[i,k])^{\rho_i}$. Now if $\Delta(\tilde{\bm{C}},\hat{\bm{C}})>e$, we see that the prover succeeds in the	proximity check equation \eqref{eq:proxchecks} with probability at most $(1-e/n)^t$.
 	%-----------
 	If $\Delta(\tilde{\bm{C}}, \hat{\bm{C}}) \leq e$, while $d(\tilde{\ewit},\mc{C}_1)>e$, then it is easy to break the binding property commitment scheme. Thus an adversarial prover succeeds with probability at most $(1-e/n)^t$ when $d(\ewit,(\mc{W}_1)^p)>e$.
-	%In the complete	proof, we show that when $\Delta(\tilde{\bm{C}},\hat{\bm{C}})\leq e$, while $d(\tilde{\ewit},\mc{C}_1)>e$, the prover knows two openings to a commitment. 	Thus an adversarial prover succeeds with probability at most $(1-e/n)^t$ when $d(\ewit,(\mc{W}_1)^{3p})>e$.
 	%-----------
 	
 	We now consider the case when $d(\ewit,(\mc{W}_1)^{3p})\leq e$. From Lemma~\ref{lem:bicdecoding}, there exists (unique) $\ewit^*\in (\mc{W})^{3p}$ such that $\Delta_1(\ewit,\ewit^*)\leq e$. Let $\wit_a=\dec(\ewit_a)=\dec(\ewit^*_a)$. We consider the prover's success probability when $\wit_x\circ \wit_y = \wit_z$, and thus with overwhelming probability $\sum_{i\in[p]} r_i\cdot(\wit_x[i,\cdot,\cdot]\cdot\wit_y[i,\cdot,\cdot]-\wit_z[i,\cdot,\cdot]) = [\bm{0}]^{ms}$. Let $P^*$ denote the correctly computed intermediate matrix from $\ewit^*$ and let $\hat{P}$ denote the correctly computed intermediate matrix from $\ewit$. We note that $\Delta_1(\hat{P},P^*)\leq e$. Let $c_1, \ldots, c_{2\ell-1}$ be the commitments to the intermediate matrix sent by the prover. If these commitments correspond to a matrix $P=P^*$, the inner product check	$\innerproduct(\mathsf{pp},[\gamma||0^{m-1}],\mathsf{cm},0)$ fails when using the commitment $\mathsf{cm}=\prod_{k=1}^{2\ell-1}c_k^{\varphi_k}$ for	$\varphi=\Phi\times \tau$. This is because $\innp{\gamma||0^{m-1}}{P^*[1:2m-1,1:2\ell-1]\times \varphi}=\sum_{j\in[m]} \gamma_j\sum_{k\in[s]} \tau_k \sum_{i\in[p]} r_i [\wit_x[i,j,k] \cdot \wit_y[i,j,k] - \wit_z[i,j,k] ] \neq 0$, as discussed in the protocol. If the commitments correspond to a matrix $P\neq P^*$, we have $\Delta_1(P,P^*)\geq n-2\ell$ by distance property of the code $\rsc{\eta}{n, 2\ell-1}$. (We note that a prover implicitly commits to a matrix in	$\rsc{\eta}{n,2\ell-1}\otimes \rsc{\alpha}{h,2m-1}$). Thus there exists a set $E$ of at least $n-2\ell-e$ columns, such that for $k\in E$, $\hat{P}[\cdot,k]=P^*[\cdot,k]\neq P[\cdot,k]$. The checks $\innp{\bm{1}_{j_u}}{W_u}=\sum_{i\in[p]}\delta_i(\beta_x X_u + \beta_y Y_u + \beta_z Z_u)$ for $i\in [p]$ and $u\in [t]$ force the prover to provide vectors $X_u=\ewit_x[\cdot,j_u,k_u], Y_u=\ewit_y[\cdot,j_u,k_u], Z_u=\ewit_z[\cdot,j_u,k_u]$ with overwhelming probability. Then the consistency check succeeds for the uniformly sampled query point $(j_u,k_u)$ when:

@@ -1,5 +1,4 @@
 %--------------
-%In this section, we describe a sub-linear interactive zero-knowledge argument as a public-coin IPCP. The IPCPs are special cases of more general Interactive Oracle Proofs (IOP) ~\cite{BCS16}. In ~\cite{BCS16}, the authors present a transformation (commonly referred to as ``BCS'' after the authors) to compile a public-coin IOP into a non-interactive argument in the Random Oracle Model. The transformation can be applied to our protocol to obtain a publicly-verifiable non-interactive argument. Moreover, in distributed setting, the aggregator $\Ag$ can apply the transformation on provers' messages to output a non-interactive argument. 
 %-------
 This section provides the main primitives that we use extensively to construct $\name$ and its components, such as $\linearcheck$ and $\quadcheck$. The primitives are i) Witness Encoding, ii) Codes and matrices, iii) Commitment of product codewords, iv) Oracle construction, and v) Witness decoding.
 %------
@@ -8,8 +7,7 @@ Our protocol proves membership in the $\npol$-complete language specified by {\e
 recent zero knowledge constructions ~\cite{Groth16,aurora,marlin}, and circuit compilers such as ~\cite{zokrates} naively support the R1CS formulation. 
 %------------
 The arithmetic circuit representation can be expressed as an R1CS by introducing a constraint for each multiplication gate. We follow the broad outline of the interactive PCP
-construction in \cite{ligero} which includes: (i) extending the witness, denoted as extended witness, to the concatenation of values over all the wires in topological order of an arithmetic circuit representing the statement, (ii) encoding the extended witness via suitable error-correcting code, (iii) checking linear relations on the extended witness%(for the values concerning the wires going into and coming out from the addition gates)
-, and (iv) checking quadratic relations on the extended witness  (for the values concerning the wires going into and coming out from the multiplication gates). Both the linear and quadratic checks require sub-linear (oracle) access to the witness encoding.
+construction in \cite{ligero} which includes: (i) extending the witness, denoted as extended witness, to the concatenation of values over all the wires in topological order of an arithmetic circuit representing the statement, (ii) encoding the extended witness via suitable error-correcting code, (iii) checking linear relations on the extended witness, and (iv) checking quadratic relations on the extended witness  (for the values concerning the wires going into and coming out from the multiplication gates). Both the linear and quadratic checks require sub-linear (oracle) access to the witness encoding.
 However, one runs into challenges in converting the IPCP to a non-interactive argument when the witness is distributed across several provers. The naive approach of provers sharing their encoded witnesses with an aggregator, which constructs the oracle breaches privacy among the provers, as these encodings only support {\em bounded independence}, i.e, they maintain privacy only when a bounded part of the witness is revealed. We overcome this, and several other technical challenges in our construction. The core techniques behind our
 construction are summarized below:
 %--------------
@@ -54,11 +52,11 @@ The encoding $\enc$ satisfies the following {\em bounded independence} property.
 %----------------------------------------
 
 \begin{proof}
-\ADDED{	It is sufficient to prove that an arbitrary element from $\mc{U}(p,h,b)$ is in $\ewit_B$ suffices the lemma.}
+It is sufficient to prove that an arbitrary element from $\mc{U}(p,h,b)$ is in $\ewit_B$ suffices the lemma.
 	
-\ADDED{	Let $U\in\mc{U}(p,h,b)$. Set $\ewit$ such that $\ewit[\cdot, \cdot, k] = U[\cdot, \cdot, k]$ for all $k\in B$.}
+Let $U\in\mc{U}(p,h,b)$. Set $\ewit$ such that $\ewit[\cdot, \cdot, k] = U[\cdot, \cdot, k]$ for all $k\in B$.
 	
-	\ADDED{For $i=1$ to $p$,
+For $i=1$ to $p$,
 	\begin{itemize}
 		\item[--] Construct a bivariate polynomial $Q^i(x,y)$ such that $Q^i(\alpha_j, \zeta_k) = \wit[i,j,k]$, $\forall j\in[m], k\in[s]$, and $Q^i(\alpha_j, \eta_k) = \ewit[i,j,k]$, $\forall j\in[m], k\in B$. 
 		%-----
@@ -69,7 +67,7 @@ The encoding $\enc$ satisfies the following {\em bounded independence} property.
 		\item[--] Set $\ewit[i,j,k] = Q^i(\alpha_j, \eta_k)$, forall $j\in[m], k\in [n]\setminus B$. 
 	\end{itemize}
 	Note that, $\dec(\ewit) = \wit$, therefore $\ewit[\cdot, \cdot, B]\in \ewit_B$.
-	This completes the proof.}
+	This completes the proof.
 \end{proof}
 %---------
 

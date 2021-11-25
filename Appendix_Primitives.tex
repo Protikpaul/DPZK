@@ -304,27 +304,19 @@ commitment for some ${\bf m} \in \calD^n$ such that $\innp{{\bf x}}{{\bf m}} = y
 Functional commitment is generalization of vector commitments. In our constructions, vector commitment suffices. We initiate $\FC$ with Pedersen commitment scheme or Pedersen vector commitment scheme accordingly.}
 
 We define an interactive protocol that allows proving inner-product relation over committed vectors. For this we are using Pedersen vector commitment scheme $\comm$.
-%, where the commitment corresponds to a non-interactive perfectly hiding and computationally binding commitment scheme, with an additional property of homomorphicity.  We use Pedersen vector commitment scheme $\comm$ with message space $\FF^m$, commitment space $\GG$ and randomness space $\FF$. For a set of generators $\bm{g}=(g_1,\ldots,g_m,h)$, the commitment of vector $x\in \FF^m$ with commitment randomness $r\in \FF$ is given by $\comm(x,r)=h^r \prod_{i=1}^m (g_i)^{x_i} $. This commitment is homomorphic with $\calC=\GG$ as the commitment space.
-%---------
 
 We now define the language for inner-product w.r.t. the above  as $\calL \subseteq \FF^m \times \calC \times \FF$ given by:
 %------
 \begin{equation*}
-%\begin{aligned}[c]
 \begin{array}{l}
 \calL = \{(x,c,z):\exists \; y,r \text{ s.t. } 
 c=\com(y,r)  \text{ and } \innp{x}{y}=z\} 
-%\end{aligned}
 \end{array}
 \end{equation*}
 %-------
-%The $\NP$ relation $\calR_\sigma$ for the language $\calL_\sigma$ consists of pairs $(\stmt,\wit)$ with $\stmt=(c_1,c_2,v)$ and $\wit=(x_1,x_2,r_1,r_2)$ such that $c_1=\com(x_1,r_1)$, $c_2=\com(x_2,r_2)$ and $\innp{x_1}{x_2}=v$.
-%-------
-%Interestingly, the inner-product argument is used to save on communication. Proving an inner-product statement requires sending $y$ on clear which costs more than the argument-size. Our language for inner-product is a simpler version of the one defined in ~\cite{bulletproofs}, where the first argument is also hidden in a commitment. 
 Our language for inner-product is a simpler version of the one defined in ~\cite{bulletproofs}, where the first argument is also hidden in a commitment. The inner product argument is used to reduce the communication.
 %---------------------------
 
-%We mention some instantiations inner-product arguments in Appendix~\ref{inner-product-instan}.  
 We use inner-product argument from Bulletproofs~\cite{bulletproofs}. Notably, we use a variant of inner-product where one of the vector is public and the other one is private. $\innerproduct(\mathsf{pp}, x, \cm, v ; z)$ is the notation we will be using through out the paper, where the public parameter $\mathsf{pp}$  consists of group description and generator, $x$ is a public vector and $\cm$ is the commitment of the private vector $z$ such that $\innp{x}{z} = v$.
 
 
