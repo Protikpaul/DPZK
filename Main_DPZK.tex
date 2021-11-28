@@ -84,7 +84,7 @@ That is, a protocol $\Pi_{\DPZK}$ is said to have the \textit{soundness with wit
 
 \noindent{\bf Zero-Knowledge (ZK)} Let $\Adv$ be the adversary corrupting the verifier $\verifier$. A protocol $\Pi_{\DPZK}$ is said to have the \textit{zero-knowledge} property, if there exists a simulator $\Sim$ that outputs a transcript which is indistinguishable from a real transcript. Note that a non-colluding verifier (verifier that does not collude with any of the provers) learns nothing more than the statement's assertion, not even the number of provers in the protocol. Therefore the simulated transcript remains independent of the number of provers.
 
-Note that if the functionality in Fid~\ref{func:DPZK} is modified such that the witness $\wit$ is the input of only one prover and a protocol is secure against a verifier that learns nothing more than the assertion of the statement $\stmt$, has the zero-knowledge property. The simulator for a corrupt verifier does not use the parameter $\Num$ to simulate the view. Our construction satisfies this requirement.
+Note that if the functionality in Figure~\ref{func:DPZK} is modified such that the witness $\wit$ is the input of only one prover and a protocol is secure against a verifier that learns nothing more than the assertion of the statement $\stmt$, has the zero-knowledge property. The simulator for a corrupt verifier does not use the parameter $\Num$ to simulate the view. Our construction satisfies this requirement.
 
 \noindent{\bf Witness-Confidentiality (WC)} A protocol $\Pi_{\DPZK}$ is said to have \textit{witness confidentiality} property if an adversary $\Adv$, corrupting $t( < \Num)$ out of $\Num$ provers, learns nothing about the honest provers' inputs. That is, there exists a simulator $\Sim$ acting on behalf of the honest provers and the verifier, which generates a view which is indistinguishable from the real-world view of the corrupt provers.
 
@@ -103,7 +103,7 @@ Our next relaxation comes in the form of imposing a semi-honest behaviour on the
 
 %-------
 In summary,  we will prove three properties for our protocols: (a) ZK assuming a
-semi-honest verifier, (b)  SoWE tolerating  malicious provers and (c) WH
+semi-honest verifier, (b)  SoWE tolerating  malicious provers and (c) WC
 tolerating semi-honest provers and aggregator. Our protocol can easily be modified to achieve privacy from the maliciously corrupt provers. But we do not have a provably secure $\DPZK$ when the aggregator is maliciously corrupt. A $\DPZK$ which is provably secure when the provers and the aggregator is maliciously corrupt remains open. 
 
 As for the form of witness partition across the prover's, we assume that the provers jointly hold an additive sharing of the witness $\wit$. This is general enough and well supported by secret sharing protocols.
