@@ -1,6 +1,6 @@
 \section{Potential Applications}
 \subsection{Multi-Wallet Anonymous Payments}\label{sec:application1}
-One application scenario that we highlight is in the context of decentralized anonymous payment networks such as Zcash \cite{zerocash}. 
+One application scenario that we highlight is in the context of decentralized anonymous payment networks \UPDATED{similar to} Zcash \cite{zerocash}. \UPDATED{In this example, we consider a variant of Zcash network suitably modified to work with MPC-friendly zkSNARKs discussed in this paper.}
 The users on the network create and consume coins via following transactions: (i) {\bf Mint} transaction which allows users to introduce coins to the system (after equivalent funds are
 deposited to a backing pool), (ii) {\bf Spend} transaction which allows a user to consume his unspent coins and create new coins for other users and 
 (iii) {\bf Redeem} transaction which allowed a user to redeem his unspent coins in exchange for equivalent funds in traditional banking systems. Our application 
@@ -10,18 +10,20 @@ and spent using separate identifiers, known as {\em coin commitment} ($\mathsf{c
 Roughly, $\mathsf{cm}$
 and $\mathsf{sn}$ for a coin are linked via a trapdoor $\tau$: $\mathsf{cm} = f_1(\tau)$ and $\mathsf{sn}=f_2(\tau)$ for one-way functions
 $f_1$ and $f_2$. Knowing one of them, it is infeasible to infer the other.  
-The ledger maintains a list of commitments $\mathsf{CmList}$ for all the coins introduced to the system via {\bf Mint} or {\bf Spend} transactions. 
-The ledger also maintains the list $\mathsf{SnList}$ of all the coins spent via {\bf Spend} or {\bf Redeem} transactions. As part of a spend transaction, 
+\UPDATED{As part of a spend transaction, 
 the user supplies serial numbers $\mathsf{sn}_1,\ldots,\mathsf{sn}_n$ for the $n$ coins being consumed along with the commitments for the output coins.
- Additionally, the 
-user supplies a zero knowledge proof $\pi$ attesting knowledge of $\{\mathsf{cm}_i,\tau_i\}_{i=1}^n$ such that:
-\begin{itemize}
-    \item $\mathsf{cm}_i\in \mathsf{CmList}$ for all $i\in [n]$.
-    \item $\mathsf{cm}_i=f_1(\tau_i)$ and $\mathsf{sn}_i=f_2(\tau_i)$ for all $i\in [n]$.
-\end{itemize}
-By verifying the above zero knowledge proof, the participants on the network ensure that serial numbers correspond to coins that were legitimately 
-created and by further verifying that $\mathsf{sn}_i\not\in \mathsf{SnList}$ for all $i\in [n]$, they ensure that the same coin is not 
-spent more than once (double spending).
+Additionally, the 
+user supplies a zero knowledge proof $\pi$ showing that each serial number corresponds to a valid and unspent coin and that the cumulative value of the coins is equal to the cumulative value of the output coins.} 
+%The ledger maintains a list of commitments $\mathsf{CmList}$ for all the coins introduced to the system via {\bf Mint} or {\bf Spend} transactions. 
+%The ledger also maintains the list $\mathsf{SnList}$ of all the coins spent via {\bf Spend} or {\bf Redeem} transactions. As part of a spend transaction, 
+%the user supplies serial numbers $\mathsf{sn}_1,\ldots,\mathsf{sn}_n$ for the $n$ coins being consumed along with the commitments for the output coins.
+% Additionally, the 
+%user supplies a zero knowledge proof $\pi$ attesting knowledge of $\{\mathsf{cm}_i,\tau_i\}_{i=1}^n$ such that:
+%\begin{itemize}
+%    \item $\mathsf{cm}_i\in \mathsf{CmList}$ for all $i\in [n]$.
+%    \item $\mathsf{cm}_i=f_1(\tau_i)$ and $\mathsf{sn}_i=f_2(\tau_i)$ for all $i\in [n]$.
+%\end{itemize}
+By verifying the above zero knowledge proof, the participants on the network can ensure the validity of the transaction.
 
  The above setup does not allow different users to pool in their coins as inputs to a spend transaction, for example,
 to jointly pay off another entity. The limitation stems from having to generate a zero knowledge proof, for which the user requires knowledge of all the
@@ -33,20 +35,22 @@ Using distributed proof generation, the set of pooling users supply the share of
 and use a distributed proof generation protocol proposed in this paper to output a proof that proves the validity of all the coins to the 
 larger network. This results in an atomic payment between upto $n$ senders and recipients.
 
-\subsection{Cryptocurrency Based Auctions}\label{sec:application2}
-Closely related to previous application is an auction based on cryptocurrencies, where we again use Zcash as an example. 
-We provide a simplified description where an auction for an item invites bids from participants. After an announced time interval, the bidder with maximum bid wins the auction. The bids are
-made using cryptocurrency, where the bidder is required to prove that it owns currency amounting to its bid. The key advantage of a decentralized
-cryptocurrency is that bidders can prove their ``stake'' without revealing additional details. More precisely, an auctioneer announces an auction
-$\adv$ with a time-out block height as $T$ (i.e, the bidding ends at block height $T$). A bid is made using a special transaction of type {\bf Bid}
-consisting of the vector $\bm{s}=(\mathsf{sn}_1,\ldots,\mathsf{sn}_n)$ containing serial numbers of unspent coins, integer $v$ denoting the cumulative
-value of the coins (bidding amount) and a zero knowledge proof $\pi$ attesting that the coins are legitimate and add up to $v$. The transaction succeeds
-if the proof $\pi$ verifies and serial numbers in $\bm{s}$ do not appear in the list $\mathsf{SnList}$. A successful bid transaction also marks
-the serial numbers in $\bm{s}$ in a {\tt LOCKED} state (i.e, they are not spendable till block-height $T$). Post the time-out $T$, 
-the bid with the maximum value $v$ is selected as the winning bid. The 
-coins $\bm{s}$ in it are added to the list $\mathsf{SnList}$, while {\tt LOCKED} coins from other bids are {\tt UNLOCKED} (i.e, they are spendable again).
-In this description, we leave out the details of further engagement between the auctioneer and the winning participants, as that is external to the network.
-Leveraging distributed proof generation allows a set of participants to pool in their coins and place a joint bid in the auction. The distributed proof
-generation in this case is similar to that in the previous application.
+\UPDATED{Similarly, for auctions using cryptocurrencies a set of users may leverage $\DPZK$ to produce a proof that they together own coins amounting to the proposed bid.}
 
-
+%\subsection{Cryptocurrency Based Auctions}\label{sec:application2}
+%Closely related to previous application is an auction based on cryptocurrencies, where we again use Zcash as an example. 
+%We provide a simplified description where an auction for an item invites bids from participants. After an announced time interval, the bidder with maximum bid wins the auction. The bids are
+%made using cryptocurrency, where the bidder is required to prove that it owns currency amounting to its bid. The key advantage of a decentralized
+%cryptocurrency is that bidders can prove their ``stake'' without revealing additional details. More precisely, an auctioneer announces an auction
+%$\adv$ with a time-out block height as $T$ (i.e, the bidding ends at block height $T$). A bid is made using a special transaction of type {\bf Bid}
+%consisting of the vector $\bm{s}=(\mathsf{sn}_1,\ldots,\mathsf{sn}_n)$ containing serial numbers of unspent coins, integer $v$ denoting the cumulative
+%value of the coins (bidding amount) and a zero knowledge proof $\pi$ attesting that the coins are legitimate and add up to $v$. The transaction succeeds
+%if the proof $\pi$ verifies and serial numbers in $\bm{s}$ do not appear in the list $\mathsf{SnList}$. A successful bid transaction also marks
+%the serial numbers in $\bm{s}$ in a {\tt LOCKED} state (i.e, they are not spendable till block-height $T$). Post the time-out $T$, 
+%the bid with the maximum value $v$ is selected as the winning bid. The 
+%coins $\bm{s}$ in it are added to the list $\mathsf{SnList}$, while {\tt LOCKED} coins from other bids are {\tt UNLOCKED} (i.e, they are spendable again).
+%In this description, we leave out the details of further engagement between the auctioneer and the winning participants, as that is external to the network.
+%Leveraging distributed proof generation allows a set of participants to pool in their coins and place a joint bid in the auction. The distributed proof
+%generation in this case is similar to that in the previous application.
+%
+%
