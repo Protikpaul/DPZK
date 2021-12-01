@@ -30,7 +30,7 @@ Let $\mathsf{rt}$ denote the Merkle root over the list of coins on the ledger. T
 commitment $\mathsf{cm}$ corresponds to a valid coin, one provides an authentication path $\bm{p}$ from 
 $\mathsf{cm}$ to $\mathsf{rt}$. Hence, the witness $\bm{w}_i$ involves the coin commitment $\mathsf{cm}_i$, the trapdoor $\tau_i$ for the coin and authentication path $\bm{p}_i$ from $\mathsf{cm}_i$ to the root $\mathsf{rt}$. This part of the witness is completely known to the owner of the $i^{th}$ coin. Thus the witness $\bm{w}$ authenticating the coins against the serial numbers is canonically partitioned into $\bm{w}_1,\ldots,\bm{w}_n$
 and requires no interaction to compute. On the other hand, secure computation is required to compute shares of witness wires 
-checking the equality $u_1+\ldots+u_k == v_1+\ldots+v_n$ where $u_i$ is the value of the $i^{th}$ output coin and $v_i$ 
+checking the equality $u_1+\ldots+u_n == v_1+\ldots+v_n$ where $u_i$ is the value of the $i^{th}$ output coin and $v_i$ 
 denotes the value of the $i^{th}$ input coin. Clearly, this ``shared circuit'' 
 constitutes only a fraction of the entire witness. It would be desirable, though not obvious if the secure computation for {\em computing the proof} 
 also depends on the size of {\em shared circuit} instead of the that of the entire circuit. 
