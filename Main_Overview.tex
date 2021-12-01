@@ -25,11 +25,16 @@ We will now elaborate a bit more on the number of cross-multiplications in the c
 that is of practical relevance and influences prover communication ($\prcomm$)
 and proof generation rounds ($\prrounds$). In applications where the initial witness is canonically \textit{partitioned} among the provers, \UPDATED{that is the witness $\wit = \wit_1||\ldots||\wit_{\Num}$,} the term \textit{shared circuit} denotes a sub-circuit consisting of wires, whose values are functions of inputs from more than one prover. 
 
-Consider the circuit for verifying the validity of the spend transaction in Section \ref{sec:application}. We assume that $\mathsf{rt}$ denotes the Merkle
-root over the list of the input coins. Thus, to show that a coin commitment $\mathsf{cm}$ corresponds to a valid coin, one provides an authentication path $\bm{p}$ from $\mathsf{cm}$ to $\mathsf{rt}$. Hence, the witness $\bm{w}_i$ involves the coin commitment $\mathsf{cm}_i$, the trapdoor $\tau_i$ for the coin and authentication path $\bm{p}_i$ from $\mathsf{cm}_i$ to the root $\mathsf{rt}$. This part of the witness is completely known to the owner of the $i^{th}$ coin. Thus the witness $\bm{w}$ authenticating the coins against the serial numbers is canonically partitioned into $\bm{w}_1,\ldots,\bm{w}_n$
-and requires no interaction to compute. On the other hand, secure computation is required to compute shares of witness wires evaluating the comparison $u_1+\ldots+u_k = v_1+\ldots+v_n$ where $u_i$ is the value of the $i$th output coin and $v_i$ denotes the value of the $i$th input coin. Clearly, this ``shared circuit'' 
+Consider the circuit for verifying the validity of the {\bf Spend} transaction in Section \ref{sec:application}. 
+Let $\mathsf{rt}$ denote the Merkle root over the list of coins on the ledger. Thus, to show that a coin 
+commitment $\mathsf{cm}$ corresponds to a valid coin, one provides an authentication path $\bm{p}$ from 
+$\mathsf{cm}$ to $\mathsf{rt}$. Hence, the witness $\bm{w}_i$ involves the coin commitment $\mathsf{cm}_i$, the trapdoor $\tau_i$ for the coin and authentication path $\bm{p}_i$ from $\mathsf{cm}_i$ to the root $\mathsf{rt}$. This part of the witness is completely known to the owner of the $i^{th}$ coin. Thus the witness $\bm{w}$ authenticating the coins against the serial numbers is canonically partitioned into $\bm{w}_1,\ldots,\bm{w}_n$
+and requires no interaction to compute. On the other hand, secure computation is required to compute shares of witness wires 
+checking the equality $u_1+\ldots+u_k == v_1+\ldots+v_n$ where $u_i$ is the value of the $i^{th}$ output coin and $v_i$ 
+denotes the value of the $i^{th}$ input coin. Clearly, this ``shared circuit'' 
 constitutes only a fraction of the entire witness. It would be desirable, though not obvious if the secure computation for {\em computing the proof} 
-also depends on the size of {\em shared circuit} instead of the that of the entire circuit. Since verifying merkle authentication paths using 
+also depends on the size of {\em shared circuit} instead of the that of the entire circuit. 
+Since verifying merkle authentication paths using 
 standard hash functions (like SHA2) incur upwards of $100K$ gates, the practicality of distributed proof generation in this case will be
 greatly improved if its parameters (like $\prcomm$ and $\prrounds$) are 
 linear in the size of the shared circuit $N_s$ and not the total circuit size $N$.
