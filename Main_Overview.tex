@@ -23,7 +23,7 @@ The parameter $\prrounds$ is also of cryptographic interest. If there are more t
 \noindent\textit{Shared circuit complexity}:
 We will now elaborate a bit more on the number of cross-multiplications in the circuit that needs to be evaluated distributedly for proof generation since
 that is of practical relevance and influences prover communication ($\prcomm$)
-and proof generation rounds ($\prrounds$). In applications where the initial witness is canonically \textit{partitioned} among the provers, \UPDATED{that is the witness $\wit = \wit_1||\ldots||\wit_{\Num}$,} the term \textit{shared circuit} denotes a sub-circuit consisting of wires, whose values are functions of inputs from more than one prover. 
+and proof generation rounds ($\prrounds$). In applications where the initial witness is canonically \textit{partitioned} among the provers, that is the witness $\wit = \wit_1||\ldots||\wit_{\Num}$, the term \textit{shared circuit} denotes a sub-circuit consisting of wires, whose values are functions of inputs from more than one prover. 
 
 Consider the circuit for verifying the validity of the {\bf Spend} transaction in Section \ref{sec:application}. 
 Let $\mathsf{rt}$ denote the Merkle root over the list of coins on the ledger. Thus, to show that a coin 
