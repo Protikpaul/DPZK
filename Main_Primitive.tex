@@ -82,7 +82,7 @@ codeword in $\rsc{\eta}{n,\ell}$ for all $i,j$. Similarly let $\mc{W}_2$ denote 
 $\rsc{\alpha}{h,m}$ for all $i,k$.  Let $\mc{W}=\mc{W}_1\cap \mc{W}_2$. $\mc{W}$ denotes the set of {\em well-formed} encodings  and consists of $U$ such that each slice $U[i,\cdot,\cdot]\in \rsc{\eta}{n,\ell}\otimes \rsc{\alpha}{h,m}$. 
 %-----------------------------------------------
 
-\subsubsection{Commitment of product codewords}\label{subsec:matrixcommitment}
+\subsubsection{Commitment of Product Codewords}\label{subsec:matrixcommitment}
 %----------
 We now discuss the commitment scheme for matrices in $\rsc{\eta}{n,\ell} \otimes \rsc{\alpha}{h,m}$. Similar scheme works for other product codes also. A matrix $U$ in the above product code is completely determined by the sub-matrix $\overline{U}=\{U[j,k]: j\in [m], k\in [\ell]\}$ and can be expressed as $U=\Lambda_{h,m}\overline{U}\Lambda_{n,\ell}^T$. 
 A commitment to $U$ is defined as  a vector of commitments $\bm{c}=(c_1,\ldots,c_\ell)$ where $c_k=\comm(\overline{U}[\cdot,k])$ is the vector commitment for $k^{th}$ column of $\overline{U}$ for $k\in [\ell]$. We use the notation $\bm{c} = (c_1,\ldots,c_\ell) \gets \pccom(U)$. Given $\bm{c}$, commitment to $k$th column of $U$ for $k > \ell$ 

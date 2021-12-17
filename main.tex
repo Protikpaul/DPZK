@@ -2,6 +2,7 @@
  
 \usepackage[utf8]{inputenc}%(only for the pdftex engine)
 %\RequirePackage[no-math]{fontspec}%(only for the luatex or the xetex engine)
+
 \usepackage[big]{dgruyter_NEW}
 
  %------------
@@ -23,13 +24,13 @@
 
   \author[2]{Arpita Patra}
 
-  \author[3]{Protik Paul}
+  \author*[3]{Protik Paul}
 
   \author[4]{Nitin Singh}
   
   \author[5]{Dhinakaran Vinayagamurthy}
 
-  \affil[1]{IBM Research, E-mail: pankajdayama@in.ibm.com}
+  \affil[1]{IBM Research, E-mail: pankajdayama@in.ibm.com, IBM}
 
   \affil[2]{Indian Institute of Science Bangalore, E-mail: arpita@iisc.ac.in}
 
@@ -49,21 +50,21 @@
 %{Please put abstract here.}
 %\end{abstract}
 \input{abstract}
-%  \keywords{keywords, keywords}
+\keywords{Zero-Knowledge, Multi-party Computation, Distributed Prover}
 %  \classification[PACS]{}
  % \communicated{...}
  % \dedication{...}
 
   \journalname{Proceedings on Privacy Enhancing Technologies}
-%\DOI{Editor to enter DOI}
-%  \startpage{1}
-%  \received{..}
-%  \revised{..}
-%  \accepted{..}
-%
-%  \journalyear{..}
-%  \journalvolume{..}
-%  \journalissue{..}
+  \DOI{Editor to enter DOI}
+  \startpage{1}
+  \received{..}
+  \revised{..}
+  \accepted{..}
+
+  \journalyear{..}
+  \journalvolume{..}
+  \journalissue{..}
  
 
 \maketitle
@@ -73,7 +74,7 @@
 \label{sec:intro}
 \input{Main_Introduction}
 %------------------------------------------------------------------------------
-\section{Overview of our work}
+\section{Overview of Our Work}
 \label{sec:overview}
 \input{Main_Overview}
 %-----------------------------------------------------------------------------
@@ -89,6 +90,13 @@
 \label{sec:instantiations}
 \input{Main_Instantiation}
 %-----------------------------------------------------------------------------
+\section{Conclusion}
+In this work, we presented a formal definition of distributed-prover zero-knowledge ($\DPZK$) and a generic compilation technique from any IOP-based zero-knowledge protocol to a $\DPZK$ protocol. Furthermore, we provided an efficient single-prover protocol that achieves $\DPZK$ with a minimal overhead of communication among the provers while retaining the proof size and verification time.
+
+We provide witness confidentiality against semi-honest provers. Extending this to the malicious provers is left as an open problem. Another interesting future work is constructing a universal composable (UC) $\DPZK$.
+%-----------------------------------------------------------------------------
+\section*{Acknowledgement}
+We thank the reviewers for their valuable comments, which helped improve the paper. Arpita Patra would like to acknowledge financial support from SERB MATRICS (Theoretical Sciences) Grant 2020, Google India AI/ML Research Award 2020, DST National Mission on Interdisciplinary Cyber-Physical Systems (NM-CPS) 2020 and National Security Council, India.
 
 \bibliographystyle{abbrv}
 \bibliography{main}
@@ -108,7 +116,7 @@
 \label{app:dp_grapehene_securityproofs}
 \input{Appendix_DP_security_Proofs}
 %-----------------------------------------------------------------------------
-\section{DPZK from existing protocols}
+\section{DPZK from Existing Protocols}
 \label{app:dpzk_others}
 \input{Appendix_DPZK_others}
 %-----------------------------------------------------------------------------
@@ -116,7 +124,7 @@
 \label{app:DP_Protocols}
 \input{Appendix_DP_Protocols}
 %-----------------------------------------------------------------------------
-\section{Shared circuit complexity}
+\section{Shared Circuit Complexity}
 \label{app:shared_ciruit}
 \input{Appendix_Shared_Circuit}
 %-----------------------------------------------------------------------------

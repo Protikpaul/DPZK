@@ -58,7 +58,7 @@ In summary, the efficiency of a $\DPZK$ in the public-verifiable and
 non-interactive setting (which is our concern) will be measured via $\prcomm$,
 $\prrounds$, in addition to the parameters for the single prover protocol.
 
-\subsection{On the formal Definition of $\DPZK$}
+\subsection{On the Formal Definition of $\DPZK$}
 Just like the efficiency considerations, the security definition for a $\DPZK$ protocol needs to account for additional interaction. 
 In particular, the security definition needs to capture the fact that interaction among the provers to generate the proof does not 
 leak knowledge about their respective witnesses to other provers. 
@@ -80,7 +80,7 @@ In practice, the restriction of honest verifier is overcome by using standard tr
 argument from the interactive proof. Realizing a DPZK protocol for a malicious set of provers in an interesting future work.
 
 
-\subsection{Compiler for IOP-based proof systems}
+\subsection{Compiler for IOP-based Proof Systems}
 Several recent constructions of efficient SNARKs~\cite{aurora, BCS16} are modeled in terms of {\em Interactive Oracle Proofs} (IOPs). In this work, we present a compiler that compiles an existing IOP, into an IOP
 that admits efficient proof generation by a distributed set of provers. This requires navigating several technical challenges: (i) IOPs use the abstraction of oracles, wherein the verifier does not receive the messages from the prover entirely, and only query a small number of positions and
 (ii) transforming IOPs to {\em Non-interactive Proof of Knowledge} (SNARKs) requires the use of
@@ -96,14 +96,14 @@ To obtain the DPZK from the compiled protocol, we start with $\Num$ copies of $\
 
 This compiler preserves the proof size and the number of the rounds. However, the compiled protocol has an overhead of proof generation and verification time. This overhead depends on the oracle size, the number of oracles and the number of rounds. 
 
-\subsection{Instantiations of distributed prover zero-knowledge}
+\subsection{Instantiations of Distributed Prover Zero-Knowledge}
 We instantiate a few distributed proof generation protocols. As discussed earlier, a protocol obtained from the above compiler is more likely to perform better in a distributed proof generation if the base protocol has less number of rounds and oracles. Thus we start with the compiled version of Ligero~\cite{ligero} since it has a constant number of rounds and only one oracle. Further, we provide a protocol $\name$ by optimizing this newly obtained protocol from Ligero.
 
 Additionally, we discuss the cost of the distributed protocol obtained from Aurora~\cite{aurora}. This gives a perspective of the efficiency of a compiled protocol where the base protocol is a multi-oracle IOP.
 We study the distributed proof generation for non-IOP protocols such as Bulletproofs~\cite{bulletproofs} and Spartan~\cite{spartan}. Bulletproofs achieve the distributed proof generation naturally without requiring any additional primitives excluding secure multiplication (which is inherent in all the instantiations).   In the distributed variant of Bulletproofs, provers securely evaluate multiplication of $2$ vectors. The size of these vectors is $O(N_s)$, where $N_s$ is the size of the shared circuit. Furthermore, each prover sends $O(N)$ field elements towards the aggregator. In the distributed version of Spartan, $O(N^2)$ multiplications are required among the provers. However, this construction does not ensure privacy among the provers. This shows the non-triviality of the distributed proof generation. 
  
 
-\subsection{\name{}: an MPC-friendly zero-knowledge protocol}
+\subsection{\name{}: an MPC-friendly Zero-Knowledge Protocol}
 To construct $\name$, we adjoin an additional dimension in the Ligero protocol and modify the encoding, the linear check, and the quadratic check accordingly. With this optimization, we break the $\sqrt{N}$ ($N$ is the size of the circuit) barrier of Ligero, following a similar idea of the concurrent work of Ligero++~\cite{ligero++} where succinct inner product argument is used. Ligero++ uses inner product argument from Virgo~\cite{Virgo} whereas, we use Bulletproofs'~\cite{bulletproofs} inner product argument. Furthermore, for the soundness of $\name$, we provide novel results in coding theory. By adjoining an additional dimension, our protocol gets better flexibility to trade-off between proof size and verification time. Furthermore, we organize the witness so that if the shared circuit is small, then the communication among the provers is required for $N^{1-2/c}$ multiplications. In contrast, Ligero's compiled protocol would require $N^{1/2}$ multiplications. Also in distributed version of Ligero and $\name$, each prover sends $O(\sqrt{N})$ and $O(N^{1-2/c})$ field elements towards the aggregator respectively. Note that the 3-D encoding, obtained by adjoining an additional dimension, helps in reducing the proof size while keeping the verification time low. Also, if the size of the shared circuit is small, this additional dimension aids in reducing the communication among the provers as well. The details of $\name$ are given in Appendix~\ref{app:grapehene_securityproofs}.
 
 \subsection{Related Work}\label{sec:relatedwork}
@@ -132,7 +132,7 @@ Furthermore, a common aggregator approach does not work for these protocols sinc
 
 \begin{table*}[htp] 
 	\centering
-	\resizebox{\textwidth}{!}{
+	\resizebox{0.95\textwidth}{!}{
 		\begin{tabular}{|c|c|c|c|c|c|c|} 
 			\hline
 			Protocols &  $\zkcomm$ & $\zkrounds$ & $t_\prover$ & $t_\verifier$ & $\prrounds$ & $\prcomm$ \\

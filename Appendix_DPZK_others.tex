@@ -1,8 +1,6 @@
 %---------------------------------------
 \subsection{$\DPZK$ of Bulletproof for R1CS}\label{app:BulletproofsDPZK}
 In \cite{InnerProductDLS}, \cite{bulletproofs}, authors present a proof for a Hadamard-product relation. Suppose $\C$ is a circuit of size $N$. In their formulation,  $\bm{a}_L$, $\bm{a}_R$ and $\bm{a}_O$ denote the vectors corresponding to the left wire, right wire and output wire respectively. Then, $\bm{a}_L \circ \bm{a}_R = \bm{a}_O$ holds and satisfy the following linear constraints: 
-%$\innp{\bm{w}_{L,q}}{\bm{a}_L} + \innp{\bm{w}_{R,q}}{\bm{a}_R} + \innp{\bm{w}_{O,q}}{\bm{a}_O} = c_q$ where $1\leq q \leq Q \leq 2n$ with .
-%for a multiplication $g$ gate in a circuit $\C$ has $\bm{a}_L$, $\bm{a}_R$ and $\bm{a}_O$ as left input, right input and output wire values respectively, then $\bm{a}_L \circ \bm{a}_R = \bm{a}_O$ holds. Other than this, these vectors are supposed to satisfy additional $Q\leq 2n$ linear constraints, which is of the following form:
 $$\innp{\bm{w}_{L,q}}{\bm{a}_L} + \innp{\bm{w}_{R,q}}{\bm{a}_R} + \innp{\bm{w}_{O,q}}{\bm{a}_O} = c_q \, \forall q\in [Q]$$
 with $\bm{w}_{L,q}, \bm{w}_{R,q}, \bm{w}_{O,q} \in \ZZ^N_p$ and $c_q \in \ZZ_p$.
 Consider

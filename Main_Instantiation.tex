@@ -5,7 +5,7 @@ We also discuss distributed proof generation from non-IOP protocols such as Bull
 
 %----------
 
-\subsection{Protocols with single oracle}
+\subsection{Protocols with Single Oracle}
 \paragraph*{D-Ligero:}
 We compile the Ligero protocol, and instantiate the functional commitment scheme $\FC$ by Pedersen vector commitment scheme. Note that this $\FC$ has homomorphic property and the $\open$ algorithm outputs the committed value ${\bf m}$ as the witness. The $\verif$ algorithm can be replaced by an inner product argument where ${\bf m}$ is the witness.
 %----
@@ -59,13 +59,13 @@ column of a slice such that multiplication is required only for that column.
 The details of the protocol are given in Appendix~\ref{app:grapehene_securityproofs}.
 
 
-\subsection{Multiple oracle IOP}
+\subsection{Multiple Oracle IOP}
 \paragraph*{D-Aurora:}
 In Aurora~\cite{aurora}, the size of the oracle is $O(N)$, the proof size is $O(\log^2 N)$, and number of rounds is $O(\log N)$. Aurora is an IOP-based proof system where almost all the messages from $\prover$ to $\verifier$ are set as oracles, and $\verifier$ makes oracle-queries to complete the verification.
 %----
 We can convert Aurora using our compiler, where we instantiate $\FC$ using Pedersen commitment, such that it supports DPZK. The compiled version retains the oracle size, proof size, and the number of rounds. However, the prover time and the verification time increase by $O(N\log N)$ group exponentiations due to oracle construction and validation costs. The distributed version needs secure evaluation of circuits with at least depth one and $O(N)$ multiplication gates in each round.
 %----
-\subsection{Non-IOP protocols}
+\subsection{Non-IOP Protocols}
 \paragraph*{D-Bulletproofs:}
 In Bulletproofs~\cite{bulletproofs}, the proof of an R1CS instance is reduced to an inner product argument which is proved recursively for the succinctness of the proof size. 
 %----

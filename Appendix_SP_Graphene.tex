@@ -93,7 +93,7 @@
 		\end{align*}
 	}
 	%--------
-	where $\epsilon(P^\ast):= \condprob{\langle P^\ast(\bm{x},\sigma),\verifier^\pi(\bm{x},\sigma)\rangle=1}{\sigma\gets \gen(\secparam)}$ denotes the success probability of $P^\ast$, $\kappa_{lc}$ denotes a negligible function, and $\bm{x}$ denotes the tuple $(A,b,M,N)$.
+	where \\$\epsilon(P^\ast):= \condprob{\langle P^\ast(\bm{x},\sigma),\verifier^\pi(\bm{x},\sigma)\rangle=1}{\sigma\gets \gen(\secparam)}$ denotes the success probability of $P^\ast$, $\kappa_{lc}$ denotes a negligible function, and $\bm{x}$ denotes the tuple $(A,b,M,N)$.
 \end{lemma}
 %------------------------------------------------------
 %---LINEAR CHECK SOUNDNESS LEMMA PROOF-----------------
@@ -248,7 +248,7 @@
 	such that either $\extr$ breaks the commitment binding, or it outputs a witness
 	with overwhelming probability whenever $P^\ast$ succeeds, i.e,
 	
-	{\footnotesize
+	{\fontsize{7}{10}
 		\begin{align*}
 		\condprob{
 			\begin{array}{c}
@@ -402,7 +402,7 @@ For the latter case, if $d(\ewit, (\mc{W}_1)^{4p}) \leq e$, then there exists un
 \begin{lemma}[Soundness]\label{lem:graphene_sound}
 	For all polynomially bounded provers $P^\ast$ and all $\pi\in\GG^{4p\times n}$, there exists an expected polynomial time extractor $\extrac$ with rewinding access to the transcript oracle $\tr = \innp{P^{\ast}}{\verifier^{\pi}}$ such that either $\extrac$ breaks the commitment binding, or it outputs a witness with overwhelming probability whenever $P^\ast$ succeeds, i.e.,
 	%----------
-	{\footnotesize
+	{\fontsize{7}{10}
 		\begin{align*}
 		\condprob{
 			\begin{array}{c}
@@ -448,7 +448,7 @@ The verifier's extended view for the $\name$ protocol consists of:
 	%-----
 	\item[--] {\em Verifier Randomness:} $\verifier$'s messages consist of:	$\{\gamma_x, \gamma_y, \gamma_z, r_{lc}, r_{qd}, \rho, Q=\{(j_u,k_u)\}_{u\in[t]},\\ \delta_{lc}, \delta_{qd}, \beta_{lc}, \beta_x, \beta_y, \beta_z, \beta_{qd}, \tau_{qd}, \gamma_{qd}\}$.
 	%-----
-	\item[--] {\em Commitments:} $\prover$ sends the following commitments to $\verifier$:
+	\item[--] {\em Commitments:} $\prover$ sends the following commitments to $\verifier$:\\
 	%-----
 	$\{\tilde{c_u}\}_{u\in[\ell]}, \; \{c_u\}_{u\in\{0, 1, \ldots, s+\ell-1 \} }, \; \{d_u\}_{u\in \{0, 1, \ldots, 2\ell-1\}}$
 	%-----
